@@ -1,0 +1,833 @@
+ScreenManager:
+    HomeScreen:
+    Quadratic:
+    BasicCalculator:
+    BMI:
+
+<BMI>
+    name: 'bmi'
+    Screen:
+        MDNavigationLayout:
+            ScreenManager:
+                Screen:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        MDTopAppBar:
+                            title: "BMI Calculator"
+                            pos_hint: {'top':1}
+                            left_action_items: [['menu', lambda x: nav_drawer.set_state('toggle')]]
+                            right_action_items: [['gamepad-variant', lambda x: app.show_rgb_dialog()]]
+                            elevation: 3
+                            md_bg_color: "#b2173a"
+                        MDFloatLayout:
+                            canvas.before:
+                                Color:
+                                    rgba: .11, .11, .086, 1
+                                RoundedRectangle:
+                                    pos: root.width*.15, root.height*.30
+                                    size: root.width*.70, root.height*.40
+                                    radius: [25, 25, 25, 25]
+                            FloatLayout:
+                                orientation: 'vertical'
+                                Image:
+                                    pos_hint: {'center_x':.5, 'center_y':0.60}
+                                    source: "team.png"
+                                MDLabel:
+                                    pos_hint: {'center_x':.5, 'center_y':0.40}
+                                    text: 'Under construction'
+                                    halign: 'center'
+            MDNavigationDrawer:
+                id: nav_drawer
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    padding: 0, 50, 0, 0
+                    Image:
+                        source: 'logo.png'
+                        size_hint: 0.5, 0.5
+                        pos_hint: {'center_x':.5, 'center_y':0.35}
+                    MDLabel:
+                        text: 'Swiss Calculator'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        font_size: 30
+                        halign: 'center'
+                    MDLabel:
+                        text: 'Created by Hermonio, Leguira, Langreo'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        font_size: 13
+                    MDLabel:
+                        text: 'Version 1.0'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        font_size: 13
+                    MDLabel:
+                        text: ' '
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        font_size: 20
+                    ScrollView:
+                        MDList:
+                            OneLineIconListItem:
+                                text: "Basic Calculator"
+                                on_press:
+                                    nav_drawer.set_state('toggle')
+                                    root.manager.current = 'basic'
+                                IconLeftWidget:
+                                    icon: "calculator"
+                            OneLineIconListItem:
+                                text: "Quadratic Calculator"
+                                on_press:
+                                    nav_drawer.set_state('toggle')
+                                    root.manager.current = 'quad'
+                                IconLeftWidget:
+                                    icon: "multiplication-box"
+                            OneLineIconListItem:
+                                text: "BMI Calculator"
+                                disabled: True
+                                IconLeftWidget:
+                                    icon: "weight"
+                            OneLineIconListItem:
+                                text: "Home"
+                                on_press:
+                                    nav_drawer.set_state('toggle')
+                                    root.manager.current = 'home'
+                                IconLeftWidget:
+                                    icon: "home"
+                    MDLabel:
+                        height: self.texture_size[1]
+                        halign: "center"
+                        text: "More calculators coming soon."
+<HomeScreen>:
+    name: 'home'
+    Screen:
+        MDNavigationLayout:
+            ScreenManager:
+                Screen:
+                    BoxLayout:
+                        orientation: 'vertical'
+
+                    MDTopAppBar:
+                        title: "Home"
+                        pos_hint: {'top':1}
+                        elevation: 3
+                        md_bg_color: "#b2173a"
+
+                    MDFloatLayout:
+                        canvas.before:
+                            Color:
+                                rgba: .11, .11, .086, 1
+                            RoundedRectangle:
+                                pos: root.width*.15, root.height*.20
+                                size: root.width*.70, root.height*.60
+                                radius: [25, 25, 25, 25]
+                        Image:
+                            source: "logo.png"
+                            size_hint: .3, .3
+                            pos_hint: {'center_x':0.5, 'center_y':0.65}
+                        MDGridLayout:
+                            size_hint: 1, 0.10
+                            pos: 0, root.height*.43
+                            rows:2
+                            MDLabel:
+                                text: "Swiss Calculator"
+                                halign: "center"
+                                font_size: 30
+                            MDLabel:
+                                text: "Select a calculator."
+                                halign: "center"
+                        MDFloatLayout:
+                            spacing: 50
+                            MDFloatingActionButton:
+                                icon: "weight"
+                                on_press: root.manager.current = 'bmi'
+                                pos_hint: {'center_x':0.7, 'center_y':0.35}
+                                md_bg_color: "#b2173a"
+                            MDFloatingActionButton:
+                                icon: "calculator"
+                                on_press: root.manager.current = 'basic'
+                                pos_hint: {'center_x':0.5, 'center_y':0.35}
+                                md_bg_color: "#b2173a"
+                            MDFloatingActionButton:
+                                icon: "multiplication-box"
+                                on_press: root.manager.current = 'quad'
+                                pos_hint: {'center_x':0.3, 'center_y':0.35}
+                                md_bg_color: "#b2173a"
+                        MDFloatLayout:
+                            MDLabel:
+                                text: "Basic"
+                                halign: "center"
+                                font_size: 14
+                                pos_hint: {'center_x':0.5, 'center_y':0.28}
+                            MDLabel:
+                                text: "Quadratic"
+                                font_size: 14
+                                pos: 230, -110
+                                pos_hint: {'center_x':0.74, 'center_y':0.28}
+                            MDLabel:
+                                text: "BMI"
+                                halign: "center"
+                                font_size: 14
+                                pos_hint: {'center_x':0.70, 'center_y':0.28}
+
+
+<Quadratic>:
+    name: 'quad'
+    id: quad
+    quadEntry:quadEntry
+    first:first
+    second:second
+    Screen:
+        MDNavigationLayout:
+            ScreenManager:
+                Screen:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        MDTopAppBar:
+                            title: "Quadratic Calculator"
+                            pos_hint: {'top':1}
+                            left_action_items: [['menu', lambda x: nav_drawer.set_state('toggle')]]
+                            right_action_items: [['gamepad-variant', lambda x: app.show_rgb_dialog()]]
+                            elevation: 3
+                            md_bg_color: "#b2173a"
+                        MDFloatLayout:
+                            canvas.before:
+                                Color:
+                                    rgba: .11, .11, .086, 1
+                                RoundedRectangle:
+                                    pos: root.width*.05, root.height*.03
+                                    size: root.width*.90, root.height*.85
+                                    radius: [25, 25, 25, 25]
+                            FloatLayout:
+                                orientation: 'vertical'
+                                MDLabel:
+                                    text: "Ax² + Bx + C"
+                                    halign: 'center'
+                                    font_size: 50
+                                    pos_hint: {'center_x':0.50, 'center_y':0.91}
+                                FloatLayout:
+                                    orientation: 'horizontal'
+                                    pos: 100, 100
+                                    MDTextField:
+                                        id:second
+                                        padding: 10, 10, 10, 10
+
+                                        size_hint: .38, None
+                                        multiline: False
+                                        pos_hint: {'center_x':0.51, 'center_y':0.5}
+                                        helper_text: "Second Root"
+                                        text_color_normal: "#b2173a"
+                                        text_color_focus: "#b2173a"
+                                        helper_text_color_normal: "white"
+                                        helper_text_color_focus: "white"
+                                        helper_text_mode: "persistent"
+                                        mode: 'fill'
+                                        fill_color_normal: 1, 1, 1, 1
+                                        fill_color_focus: 1, 1, 1, 1
+                                        radius: 10, 10, 10, 10
+                                        readonly: True
+                                        font_size: 30
+
+                                    MDTextField:
+                                        id:first
+                                        size_hint: .38, None
+                                        pos_hint: {'center_x':0.09, 'center_y':0.5}
+                                        padding: 10, 10, 10, 10
+                                        helper_text: "First Root"
+                                        text_color_normal: "#b2173a"
+                                        text_color_focus: "#b2173a"
+                                        helper_text_color_normal: "white"
+                                        helper_text_color_focus: "white"
+                                        helper_text_mode: "persistent"
+                                        mode: 'fill'
+                                        fill_color_normal: 1, 1, 1, 1
+                                        fill_color_focus: 1, 1, 1, 1
+                                        radius: 10, 10, 10, 10
+                                        readonly: True
+                                        font_size: 30
+                                MDGridLayout:
+                                    size_hint: .8, .7
+                                    spacing: -80
+                                    pos_hint: {'center_x':0.50, 'center_y':0.66}
+                                    rows: 4
+                                    FloatLayout:
+                                        MDTextField:
+                                            id: quadEntry
+                                            size_hint: 1, None
+                                            pos_hint: {'center_x':0.50, 'center_y':0.59}
+                                            padding: 10, 10, 10, 10
+                                            hint_text: "Value of A, B, C"
+                                            text_color_normal: "#b2173a"
+                                            text_color_focus: "#b2173a"
+                                            hint_text_color_normal: "black"
+                                            hint_text_color_focus: "black"
+                                            mode: 'fill'
+                                            fill_color_normal: 1, 1, 1, 1
+                                            fill_color_focus: 1, 1, 1, 1
+                                            radius: 10, 10, 10, 10
+                                            readonly: True
+                                            font_size: 30
+                                        MDIconButton:
+                                            icon: "arrow-right"
+                                            pos_hint: {'center_x':.93, 'center_y':0.57}
+                                            theme_icon_color: "Custom"
+                                            icon_color: "#b2173a"
+                                            on_press:
+                                                quad.store(quadEntry.text)
+                                                quad.quadCalc(quad.a, quad.b, quad.c)
+                                    MDGridLayout:
+                                        rows: 3
+                                        spacing: dp(-15)
+                                        BoxLayout:
+                                            pos_hint: {'center_y':0.5}
+                                            spacing: dp(10)
+                                            adoptive_size: True
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1 , 1, 1, 1
+                                                font_size: sp(30)
+                                                text: "7"
+                                                on_press:quadEntry.text += self.text
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1, 1, 1, 1
+                                                font_size: sp(30)
+                                                text: "8"
+                                                on_press:quadEntry.text += self.text
+
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1, 1, 1, 1
+                                                font_size: sp(30)
+                                                text: "9"
+                                                on_press:quadEntry.text += self.text
+
+                                            Button:
+                                                text: 'AC'
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1.78 , .523, .558, 1
+                                                font_size: sp(30)
+                                                on_press:
+                                                    first.text = ""
+                                                    second.text = ""
+                                                    quadEntry.text = ""
+
+                                        BoxLayout:
+                                            spacing: dp(10)
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1, 1, 1, 1
+                                                font_size: sp(30)
+                                                text: "4"
+                                                on_press:quadEntry.text += self.text
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1, 1, 1, 1
+                                                font_size: sp(30)
+                                                text: "5"
+                                                on_press:quadEntry.text += self.text
+
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1, 1, 1, 1
+                                                font_size: sp(30)
+                                                text: "6"
+                                                on_press:quadEntry.text += self.text
+
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: .51 , .51, .51, 1
+                                                font_size: sp(30)
+                                                text: ","
+                                                on_press:quadEntry.text += self.text
+                                        BoxLayout:
+                                            spacing: dp(10)
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1, 1, 1, 1
+                                                font_size: sp(30)
+                                                text: "1"
+                                                on_press:quadEntry.text += self.text
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1, 1, 1, 1
+                                                font_size: sp(30)
+                                                text: "2"
+                                                on_press:quadEntry.text += self.text
+
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: 1, 1, 1, 1
+                                                font_size: sp(30)
+                                                text: "3"
+                                                on_press:quadEntry.text += self.text
+
+                                            Button:
+                                                size_hint: .25, .75
+                                                theme_text_color: "Custom"
+                                                text_color: 1, 1, 1, 1
+                                                line_color: 0, 0, 0, 0
+                                                background_color: .51 , .51, .51, 1
+                                                font_size: sp(30)
+                                                text: "0"
+                                                on_press:quadEntry.text += self.text
+
+            MDNavigationDrawer:
+                id: nav_drawer
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    padding: 0, 50, 0, 0
+                    Image:
+                        source: 'logo.png'
+                        size_hint: 0.5, 0.5
+                        pos_hint: {'center_x':.5, 'center_y':0.35}
+                    MDLabel:
+                        text: 'Swiss Calculator'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        font_size: 30
+                        halign: 'center'
+                    MDLabel:
+                        text: 'Created by Hermonio, Leguira, Langreo'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        font_size: 13
+                    MDLabel:
+                        text: 'Version 1.0'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        font_size: 13
+                    MDLabel:
+                        text: ' '
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        font_size: 20
+                    ScrollView:
+                        MDList:
+                            OneLineIconListItem:
+                                text: "Basic Calculator"
+                                on_press:
+                                    nav_drawer.set_state('toggle')
+                                    root.manager.current = 'basic'
+                                IconLeftWidget:
+                                    icon: "calculator"
+                            OneLineIconListItem:
+                                text: "Quadratic Calculator"
+                                disabled: 'True'
+                                IconLeftWidget:
+                                    icon: "multiplication-box"
+                            OneLineIconListItem:
+                                text: "BMI Calculator"
+                                on_press:
+                                    nav_drawer.set_state('toggle')
+                                    root.manager.current = 'bmi'
+                                IconLeftWidget:
+                                    icon: "weight"
+                            OneLineIconListItem:
+                                text: "Home"
+                                on_press:
+                                    nav_drawer.set_state('toggle')
+                                    root.manager.current = 'home'
+                                IconLeftWidget:
+                                    icon: "home"
+                    MDLabel:
+                        height: self.texture_size[1]
+                        halign: "center"
+                        text: "More calculators coming soon."
+
+
+
+<BasicCalculator>:
+    name: 'basic'
+    id: calculator
+    display: entry
+    historyID: history
+
+
+    Screen:
+        MDNavigationLayout:
+            ScreenManager:
+                Screen:
+                    BoxLayout:
+                        orientation: 'vertical'
+                        MDTopAppBar:
+                            title: "Basic Calculator"
+                            pos_hint: {'top':1}
+                            left_action_items: [['menu', lambda x: nav_drawer.set_state('toggle')]]
+                            right_action_items: [['gamepad-variant', lambda x: app.show_rgb_dialog()]]
+                            elevation: 3
+                            md_bg_color: "#b2173a"
+
+                        MDFloatLayout:
+                            canvas.before:
+                                Color:
+                                    rgba: .11, .11, .086, 1
+                                RoundedRectangle:
+                                    pos: root.width*.05, root.height*.01
+                                    size: root.width*.90, root.height*.87
+                                    radius: [25, 25, 25, 25]
+
+                            GridLayout:
+                                rows:2
+                                pos: root.width*.05, root.height*.025
+                                padding: dp(20), dp(50), dp(20), dp(10)
+                                size_hint: .90, 1
+                                TextInput:
+                                    id: entry
+                                    font_size: sp(self.height*0.70)
+                                    size_hint: 1, 0.20
+                                    multiline: False
+                                    readonly: True
+                                    padding: sp(self.width*0.025), sp(self.height*0.1), sp(self.width*0.025), sp(self.height*0.07)
+                                    spacing: sp(self.height*0.70)
+                                    base_direction: "rtl"
+                                    allow_copy: False
+                                    cursor_blink: False
+                                    cursor_color: 1, 1, 1, 1
+
+                                GridLayout:
+                                    rows:5
+                                    spacing: dp(-15)
+                                    BoxLayout:
+                                        pos_hint: {'center_y':0.5}
+                                        spacing: dp(10)
+                                        adoptive_size: True
+
+                                        Button:
+                                            font_size: sp(30)
+                                            text: "AC"
+                                            on_press: entry.text = ""
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: .51 , .51, .51, 1
+
+
+                                        Button:
+                                            font_size: sp(30)
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: .51 , .51, .51, 1
+                                            on_press:
+                                                list = entry.text[:-1]
+                                                entry.text = list
+                                            Image:
+                                                source:"backspace.png"
+                                                size: dp(30), dp(30)
+                                                keep_ratio: False
+                                                center_x: self.parent.center_x
+                                                center_y: self.parent.center_y
+
+
+                                        Button:
+                                            font_size: sp(30)
+                                            text: "%"
+                                            on_press:entry.text += self.text
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: .51 , .51, .51, 1
+
+                                        Button:
+                                            font_size: sp(30)
+                                            text: "/"
+                                            on_press:entry.text += self.text
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: .51 , .51, .51, 1
+
+                                    BoxLayout:
+                                        pos_hint: {'center_y':0.5}
+                                        spacing: dp(10)
+                                        adoptive_size: True
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1 , 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "7"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "8"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "9"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: .51 , .51, .51, 1
+                                            font_size: sp(30)
+                                            text: "*"
+                                            on_press:entry.text += self.text
+
+                                    BoxLayout:
+                                        spacing: dp(10)
+
+                                        Button:
+
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "4"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "5"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "6"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: .51 , .51, .51, 1
+                                            font_size: sp(30)
+                                            text: "-"
+                                            on_press:entry.text += self.text
+                                    BoxLayout:
+                                        spacing: dp(10)
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "1"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "2"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "3"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: .51 , .51, .51, 1
+                                            font_size: sp(30)
+                                            text: "+"
+                                            on_press:entry.text += self.text
+
+                                    BoxLayout:
+                                        spacing: dp(10)
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            id: history
+                                            font_size: sp(0)
+                                            on_press: entry.text = history.text
+                                            Image:
+                                                source:"history.png"
+                                                size: dp(30), dp(30)
+                                                center_x: self.parent.center_x
+                                                center_y: self.parent.center_y
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "0"
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1, 1, 1, 1
+                                            font_size: sp(30)
+                                            text: "."
+                                            on_press:entry.text += self.text
+
+                                        Button:
+                                            size_hint: .25, .75
+                                            theme_text_color: "Custom"
+                                            text_color: 1, 1, 1, 1
+                                            line_color: 0, 0, 0, 0
+                                            background_color: 1.78 , .523, .558, 1
+                                            font_size: sp(30)
+                                            text: "="
+                                            on_press:
+                                                calculator.calculate(entry.text)
+                                                calculator.retrieve(entry.text)
+                                                calculator.limitoutput(entry.text)
+            MDNavigationDrawer:
+                id: nav_drawer
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    padding: 0, 50, 0, 0
+                    Image:
+                        source: 'logo.png'
+                        size_hint: 0.5, 0.5
+                        pos_hint: {'center_x':.5, 'center_y':0.35}
+                    MDLabel:
+                        text: 'Swiss Calculator'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        font_size: 30
+                        halign: 'center'
+                    MDLabel:
+                        text: 'Created by Hermonio, Leguira, Langreo'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        font_size: 13
+                    MDLabel:
+                        text: 'Version 1.0'
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        font_size: 13
+                    MDLabel:
+                        text: ' '
+                        size_hint_y: None
+                        height: self.texture_size[1]
+                        halign: 'center'
+                        font_size: 20
+                    ScrollView:
+                        MDList:
+                            OneLineIconListItem:
+                                text: "Basic Calculator"
+                                disabled: 'True'
+                                IconLeftWidget:
+                                    icon: "calculator"
+                            OneLineIconListItem:
+                                text: "Quadratic Calculator"
+                                on_press:
+                                    nav_drawer.set_state('toggle')
+                                    root.manager.current = 'quad'
+                                IconLeftWidget:
+                                    icon: "multiplication-box"
+                            OneLineIconListItem:
+                                text: "BMI Calculator"
+                                on_press:
+                                    nav_drawer.set_state('toggle')
+                                    root.manager.current = 'bmi'
+                                IconLeftWidget:
+                                    icon: "weight"
+                            OneLineIconListItem:
+                                text: "Home"
+                                on_press:
+                                    nav_drawer.set_state('toggle')
+                                    root.manager.current = 'home'
+                                IconLeftWidget:
+                                    icon: "home"
+                    MDLabel:
+                        height: self.texture_size[1]
+                        halign: "center"
+                        text: "More calculators coming soon."
+
+
+
